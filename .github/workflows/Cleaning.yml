@@ -2,7 +2,7 @@ name: Cleaning
 
 on:
   schedule:
-    - cron: 0 16 * * *
+    - cron: 1 16 * * *
   watch:
     types: started
 
