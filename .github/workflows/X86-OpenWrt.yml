@@ -116,15 +116,14 @@ jobs:
       run: |
         rm -rf ./artifact/
         mkdir -p ./artifact/
-        mv openwrt/bin/targets/x86/64/*combined.img.gz ./artifact/
+        mv openwrt/bin/targets/x86/64/*squashfs-combined.img.gz ./artifact/
         cd ./artifact/
         ls -Ahl
         gzip -d *.gz && exit 0
         gzip --best *.img
         ls -Ahl
         sha256sum openwrt*x86* | tee X86-GC404-$(date +%Y-%m-%d)-21.02.sha256sum
-        zip X86-GC404-$(date +%Y-%m-%d)-21.02-ext4.zip *combined.img
-        cp ../openwrt/*.config ./
+        zip X86-GC404-$(date +%Y-%m-%d)-21.02-sfs.zip *combined.img
         ls -Ahl
     - name: Upload artifact
       uses: actions/upload-artifact@main
@@ -142,4 +141,4 @@ jobs:
         commit: 21.02
         replacesArtifacts: true
         token: ${{ secrets.RELEASES_TOKEN }}
-        artifacts: ./artifact/*.zip,./artifact/*.config,./artifact/*.sha256sum
+        artifacts: ./artifact/*.zip,./artifact/*.sha256sum
